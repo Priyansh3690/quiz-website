@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../AddingQue.js"></script>
+</head>
+
+<body>
+  <div id="heade">
+    <script>
+      fetch('admindesh.html').then(res => res.text()).then(data => {
+        document.getElementById('heade').innerHTML = data;
+      })
+      function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'flex';
+      }
+      function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'none';
+      }
+    </script>
+  </div>
+  <div class="body">
+    <form id="quizForm" method="post">
+      <div id="questionContainer">
+        <div class="question-block">
+          <input class="inpu" type="text" name="questions[]" placeholder="Enter Question" required>
+          <input class="inpu" type="text" name="options1[]" placeholder="Option 1" required>
+          <input class="inpu" type="text" name="options2[]" placeholder="Option 2" required>
+          <input class="inpu" type="text" name="options3[]" placeholder="Option 3" required>
+          <input class="inpu" type="text" name="options4[]" placeholder="Option 4" required>
+          <input class="inpu" type="text" name="answers[]" placeholder="Correct Answer" required>
+          <button type="button" onclick="removeBlock(this)">❌ Remove</button>
+          <hr>
+        </div>
+      </div>
+
+      <button type="button" onclick="addQuestionBlock()">➕ Add More</button>
+      <button type="submit">✅ Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>

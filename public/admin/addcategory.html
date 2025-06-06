@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/browser-image-compression"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script type="text/javascript" src="../add.js" defer></script>
+  <script src="../default.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <div id="heade">
+    <script>
+      fetch('admindesh.html').then(res => res.text()).then(data => {
+        document.getElementById('heade').innerHTML = data;
+      })
+      function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'flex';
+      }
+      function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'none';
+      }
+    </script>
+  </div>
+  <div class="wrapper">
+    <h1>Add Categoty</h1>
+    <p id="error-message"></p>
+    <form id="form" method="post" enctype="multipart/form-data">
+      <div>
+        <label for="categoty-input"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+            width="24px" fill="#FFFFFF">
+            <path
+              d="m260-520 220-360 220 360H260ZM700-80q-75 0-127.5-52.5T520-260q0-75 52.5-127.5T700-440q75 0 127.5 52.5T880-260q0 75-52.5 127.5T700-80Zm-580-20v-320h320v320H120Zm580-60q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-500-20h160v-160H200v160Zm202-420h156l-78-126-78 126Zm78 0ZM360-340Zm340 80Z" />
+          </svg>
+        </label>
+        <input type="text" name="categoty" id="categoty-input" placeholder="Categoty">
+      </div>
+      <div>
+        <label for="type-input">
+          <span>T</span>
+        </label>
+        <input type="text" name="type" id="type-input" placeholder="Type : Hard | Medium | Easy">
+      </div>
+      <div>
+        <label for="images-input"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+            width="24px" fill="#e3e3e3">
+            <path
+              d="M360-400h400L622-580l-92 120-62-80-108 140Zm-40 160q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z" />
+          </svg>
+        </label>
+        <input class="custom-file-upload" type="file" name="images" id="images-input" onchange="previewImage(event)"
+          accept="image/*">
+      </div>
+      <img id="preview" src="" alt="" />
+      <button type="submit">Add</button>
+    </form>
+  </div>
+  <script>
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        document.getElementById('preview').src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
+</body>
+
+</html>

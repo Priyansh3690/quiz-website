@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="default.js"></script>
+  <style>
+    body {
+      min-height: 90vh;
+      background-image: url('image/backimg.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="heade">
+    <script>
+      fetch('first-nav.html').then(res => res.text()).then(data => {
+        document.getElementById('heade').innerHTML = data;
+      })
+      function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'flex';
+      }
+      function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'none';
+      }
+    </script>
+  </div>
+</body>
+
+</html>

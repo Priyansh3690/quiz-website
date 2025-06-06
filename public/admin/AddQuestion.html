@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category</title>
+  <link rel="stylesheet" href="../style.css">
+  <!-- <script type="text/javascript" src="../listcate.js" defer></script> -->
+  <script src="../listcateforQue.js"></script>
+  <script src="../default.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+</head>
+
+<body>
+  <div id="heade">
+    <script>
+      fetch('admindesh.html').then(res => res.text()).then(data => {
+        document.getElementById('heade').innerHTML = data;
+      })
+      function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'flex';
+      }
+      function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'none';
+      }
+    </script>
+  </div>
+  <h1>Add Questions 🤔</h1>
+  <div class="category-grid" id="listcategory">
+  </div>
+</body>
+
+</html>

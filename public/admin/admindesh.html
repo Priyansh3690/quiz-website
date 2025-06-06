@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><a href="dashbord.html">Quizii</a></li>
+      <li class="hideOnMobile"><a href="dashbord.html">DESHBOARD</a></li>
+      <li class="hideOnMobile"><a href="category.html">CATEGORY</a></li>
+      <li class="hideOnMobile"><a href="question.html">QUESTIONS</a></li>
+      <li class="hideOnMobile"><a href="#">RESULT</a></li>
+      <li class="hideOnMobile"><a href="#">USER</a></li>
+      <li class="hideOnMobile"><a href="logout.html">LOGOUT</a></li>
+      <li class="menu-button" onclick=showSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+            viewBox="0 -960 960 960" width="24px" fill="#000000">
+            <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+          </svg>
+          </svg></a></li>
+    </ul>
+    <ul class="sidebar">
+      <li onclick=hideSidebar()><a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+            viewBox="0 -960 960 960" width="24px" fill="#000000">
+            <path
+              d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+          </svg>
+        </a></li>
+      <li><a href="dashbord.html">DESHBOARD</a></li>
+      <li><a href="category.html">CATEGORY</a></li>
+      <li><a href="question.html">QUESTIONS</a></li>
+      <li><a href="#">RESULT</a></li>
+      <li><a href="#">USER</a></li>
+      <li><a href="logout.html">LOGOUT</a></li>
+    </ul>
+  </nav>
+  <script>
+    function showSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.style.display = 'flex';
+    }
+    function hideSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizzi</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="default.js"></script>
+</head>
+
+<body>
+  <div id="heade">
+    <script>
+      fetch('userheader.html').then(res => res.text()).then(data => {
+        document.getElementById('heade').innerHTML = data;
+      });
+      function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'flex';
+      }
+      function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'none';
+      }
+    </script>
+  </div>
+
+  <h1>Top Categories Quiz</h1>
+
+  <div class="category-grid">
+
+    <!-- <div class="container">
+      <img src="backimg.png" alt="df" class="img">
+      <h3>
+        Maths
+      </h3>
+      <p>
+        This quiz is base on maths formula
+      </p>
+      <p>Questions: 10 | Difficulty: Medium</p>
+    </div>
+
+    <div class="container">
+      <img src="backimg.png" alt="df" class="img">
+      <h3>
+        Maths
+      </h3>
+      <p>
+        This quiz is base on maths formula
+      </p>
+      <p>Questions: 10 | Difficulty: Medium</p>
+    </div> -->
+
+    <div class="container science">
+      <img src="backimg.png" alt="df" class="img">
+      <h3>
+        Maths
+      </h3>
+      <p>
+        This quiz is base on maths formula
+      </p>
+      <p>Questions: 10 | Difficulty: Medium</p>
+    </div>
+
+    <div class="container science">
+      <img src="backimg.png" alt="df" class="img">
+      <h3>
+        Maths
+      </h3>
+      <p>
+        This quiz is base on maths formula
+      </p>
+      <p>Questions: 10 | Difficulty: Medium</p>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

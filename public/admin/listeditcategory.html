@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../editlist.js"></script>
+  <script src="../default.js"></script>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="heade">
+    <script>
+      fetch('admindesh.html').then(res => res.text()).then(data => {
+        document.getElementById('heade').innerHTML = data;
+      })
+      function showSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'flex';
+      }
+      function hideSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.style.display = 'none';
+      }
+    </script>
+  </div>
+  <h1>Edit Categorys</h1>
+  <div class="category-grid" id="listcategory">
+  </div>
+</body>
+</html>
