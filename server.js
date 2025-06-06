@@ -152,6 +152,31 @@ app.post('/giveQuestion', async (req, res) => {
   }
 });
 
+app.post('/Set_Ans_of_Que', async (req, res) => {
+  const { UserId, cid, Answer } = req.body;
+  let count = 0;
+
+  const ans = await pool.query('select id,ans from "questionTbl" where cid=$1 order by id;', [cid]);
+  for (let i = 0; i < Answer.length; i++) {
+    let user = Answer[i];
+    let db = ans.rows[i];
+    let javab;
+
+    if (user.id != db.id) continue;
+
+    if (user.selected == db.ans) javab = true;
+    else javab = false;
+
+    await pool.query('insert into "resultTbl"(cid,uid,opetion,ans) values($1,$2,$3,$4);', [cid, UserId, user.selected, javab]);
+    count++;
+  }
+  if (count == Answer.length) {
+    res.json({ success: "success" });
+  } else {
+    res.json({ not: "Error:Somthing_Went_wrong" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`server running at http:/localhost:${port}`);
 })

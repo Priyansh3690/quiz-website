@@ -2,9 +2,9 @@ window.addEventListener('DOMContentLoaded', function () {
   const urlParam = new URLSearchParams(window.location.search);
   const cid = urlParam.get('id');
 
-  const key=localStorage.key(0);
-  const UserId=JSON.parse(localStorage.getItem(key));
-  // console.log(UserId);
+  const key = localStorage.key(0);
+  const UserId = JSON.parse(localStorage.getItem(key));
+
   const form = document.getElementById('userQuiz');
 
   fetch('/giveQuestion', {
@@ -54,6 +54,23 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    fetch('').then().then();
+    fetch('/Set_Ans_of_Que', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ UserId: UserId, cid: cid, Answer: answers }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success == 'success') {
+          Swal.fire({
+            title: 'Success!',
+            text: 'You have Complited Quiz successfully!',
+            icon: 'success',
+            confirmButtonText: 'Continue to Result'
+          }).then(() => {
+            window.location = 'ShowResult.html';
+          });
+        }
+      });
   });
 });
