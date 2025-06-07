@@ -154,22 +154,29 @@ app.post('/giveQuestion', async (req, res) => {
 
 app.post('/Set_Ans_of_Que', async (req, res) => {
   const { UserId, cid, Answer } = req.body;
-  let count = 0;
 
   const ans = await pool.query('select id,ans from "questionTbl" where cid=$1 order by id;', [cid]);
   const dbAnswers = ans.rows;
+  let total = 0;
+  let correct = 0;
+  let wrong = 0;
   for (let i = 0; i < Answer.length; i++) {
     let user = Answer[i];
     const db = dbAnswers.find(q => q.id == user.id);
 
     if (!db) continue;
-
     let IsCorrect = user.selected == db.ans;
 
-    await pool.query('insert into "resultTbl"(cid,uid,opetion,ans) values($1,$2,$3,$4);', [cid, UserId, user.selected, IsCorrect]);
-    count++;
+    if (IsCorrect) { correct++; } else { wrong++; }
+
+    await pool.query('insert into result_base_on_question(cid,uid,opetion,ans) values($1,$2,$3,$4);', [cid, UserId, user.selected, IsCorrect]);
+    total++;
   }
-  if (count == Answer.length) {
+  if (total == Answer.length) {
+    const percentage=((correct/total)*100).toFixed(2);
+
+    await pool.query('insert into result_base_on_category(uid,cid,total_que,correct_que,wrong_que,percentage) values($1,$2,$3,$4,$5,$6)',[UserId,cid,total,correct,wrong,percentage]);
+
     return res.json({ success: "success" });
   } else {
     return res.json({ not: "Error:Somthing_Went_wrong" });
