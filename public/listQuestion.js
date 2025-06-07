@@ -62,13 +62,23 @@ window.addEventListener('DOMContentLoaded', function () {
       .then(res => res.json())
       .then(data => {
         if (data.success == 'success') {
-          Swal.fire({
+          return Swal.fire({
             title: 'Success!',
             text: 'You have Complited Quiz successfully!',
             icon: 'success',
             confirmButtonText: 'Continue to Result'
           }).then(() => {
             window.location = 'ShowResult.html';
+          });
+        }
+        if (data.not == 'Error:Somthing_Went_wrong') {
+          return Swal.fire({
+            title: 'Error!',
+            text: 'You have Error in Submiting Quiz!',
+            icon: 'error',
+            confirmButtonText: 'Renter Quiz'
+          }).then(() => {
+            window.location = 'ListQuestion.html?id=' + cid;
           });
         }
       });

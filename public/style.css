@@ -204,27 +204,6 @@ form .incorrect input {
   color: red;
 }
 
-@media(max-width:800px) {
-  .hideOnMobile {
-    display: none;
-  }
-
-  .menu-button {
-    display: block;
-  }
-
-  .wrapper {
-    width: min(600px, 100%);
-    border-radius: 0;
-  }
-}
-
-@media(max-width: 400px) {
-  .sidebar {
-    width: 100%;
-  }
-}
-
 .category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -408,4 +387,67 @@ h1 {
 
 hr {
   margin: 12px;
+}
+
+/* This is for showing result table..... */
+.table-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.summary-table {
+  width: 90%;
+  border-collapse: collapse;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.summary-table th,
+.summary-table td {
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.summary-table th {
+  background-color: #8672FF;
+  color: white;
+}
+
+.summary-table tbody tr:hover {
+  background-color: #f3f0ff;
+}
+
+@media(max-width:800px) {
+  .hideOnMobile {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .wrapper {
+    width: min(600px, 100%);
+    border-radius: 0;
+  }
+}
+
+@media(max-width: 450px) {
+  .sidebar {
+    width: 100%;
+  }
+
+  .summary-table {
+    width: 350px;
+  }
+
+  .summary-table th,
+  .summary-table td {
+    padding: 8px;
+    font-size: 13px;
+  }
 }

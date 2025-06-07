@@ -157,23 +157,22 @@ app.post('/Set_Ans_of_Que', async (req, res) => {
   let count = 0;
 
   const ans = await pool.query('select id,ans from "questionTbl" where cid=$1 order by id;', [cid]);
+  const dbAnswers = ans.rows;
   for (let i = 0; i < Answer.length; i++) {
     let user = Answer[i];
-    let db = ans.rows[i];
-    let javab;
+    const db = dbAnswers.find(q => q.id == user.id);
 
-    if (user.id != db.id) continue;
+    if (!db) continue;
 
-    if (user.selected == db.ans) javab = true;
-    else javab = false;
+    let IsCorrect = user.selected == db.ans;
 
-    await pool.query('insert into "resultTbl"(cid,uid,opetion,ans) values($1,$2,$3,$4);', [cid, UserId, user.selected, javab]);
+    await pool.query('insert into "resultTbl"(cid,uid,opetion,ans) values($1,$2,$3,$4);', [cid, UserId, user.selected, IsCorrect]);
     count++;
   }
   if (count == Answer.length) {
-    res.json({ success: "success" });
+    return res.json({ success: "success" });
   } else {
-    res.json({ not: "Error:Somthing_Went_wrong" });
+    return res.json({ not: "Error:Somthing_Went_wrong" });
   }
 });
 
