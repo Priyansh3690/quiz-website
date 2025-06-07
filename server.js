@@ -152,35 +152,76 @@ app.post('/giveQuestion', async (req, res) => {
   }
 });
 
+// store question wise result and category wise result 
 app.post('/Set_Ans_of_Que', async (req, res) => {
   const { UserId, cid, Answer } = req.body;
-
-  const ans = await pool.query('select id,ans from "questionTbl" where cid=$1 order by id;', [cid]);
-  const dbAnswers = ans.rows;
-  let total = 0;
+  // let totals = Answer.length;
+  let totals = 0;
   let correct = 0;
   let wrong = 0;
+  console.log(Answer.length);
+  const ans = await pool.query('select id,ans from "questionTbl" where cid=$1 order by id;', [cid]);
+  const dbAnswers = ans.rows;
   for (let i = 0; i < Answer.length; i++) {
     let user = Answer[i];
     const db = dbAnswers.find(q => q.id == user.id);
 
     if (!db) continue;
-    let IsCorrect = user.selected == db.ans;
+    totals++;
+    let IsCorrect = user.selected === db.ans;
 
-    if (IsCorrect) { correct++; } else { wrong++; }
+    if (IsCorrect === true) { correct++; } else { wrong++; }
 
     await pool.query('insert into result_base_on_question(cid,uid,opetion,ans) values($1,$2,$3,$4);', [cid, UserId, user.selected, IsCorrect]);
-    total++;
-  }
-  if (total == Answer.length) {
-    const percentage=((correct/total)*100).toFixed(2);
 
-    await pool.query('insert into result_base_on_category(uid,cid,total_que,correct_que,wrong_que,percentage) values($1,$2,$3,$4,$5,$6)',[UserId,cid,total,correct,wrong,percentage]);
+  }
+  console.log(totals);
+  console.log(correct);
+  console.log(wrong);
+
+  let tot=totals;
+  let cor=correct;
+  let wro=wrong;
+
+  if (totals === correct + wrong) {
+    const percentage = ((correct / totals) * 100).toFixed(2);
+
+    await pool.query('insert into result_base_on_category(uid,cid,total_que,correct_que,wrong_que,percentage) values($1,$2,$3,$4,$5,$6)', [UserId, cid, totals, correct, wrong, percentage]);
 
     return res.json({ success: "success" });
   } else {
     return res.json({ not: "Error:Somthing_Went_wrong" });
   }
+});
+
+// send all result of user
+app.post('/getAllResult', async (req, res) => {
+  const { userid } = req.body;
+
+  const result = await pool.query(`
+  SELECT 
+    c.name, 
+    r.cid, 
+    r.total_que, 
+    r.correct_que, 
+    r.wrong_que, 
+    r.percentage, 
+    r.data_time 
+  FROM 
+    result_base_on_category r
+  JOIN 
+    category c ON c.id = r.cid
+  WHERE 
+    r.uid = $1
+  ORDER BY 
+   r.data_time DESC;
+`, [userid]);
+
+  if (result.rowCount > 0) {
+    return res.json(result.rows);
+  }
+
+  res.json({ not: 'Error:Somthing_Went_wrong' });
 });
 
 app.listen(port, () => {
