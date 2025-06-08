@@ -103,9 +103,13 @@ app.get('/listcategory', async (req, res) => {
 
 // delete category
 app.post('/delecate', async (req, res) => {
-  const didd = req.body.didd;
-  await pool.query('delete from category where id=$1', [didd]);
-  res.json({ success: 'success' });
+  try {
+    const didd = req.body.didd;
+    await pool.query('delete from category where id=$1', [didd]);
+    res.json({ success: 'success' });
+  } catch (error) {
+    return res.json({ error: error });
+  }
 });
 
 // get info of edit category

@@ -46,7 +46,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
                 let color = 'black';
                 if (isSelected1 && isCorrect1) {
-                    color = 'green'; // user selected correct
+                    color = 'darkgreen'; // user selected correct
                 } else if (isSelected1 && !isCorrect1) {
                     color = 'red';   // user selected wrong
                 } else if (isCorrect1) {

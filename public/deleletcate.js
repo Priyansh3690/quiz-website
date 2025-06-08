@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ didd: did }),
       }).then(res => res.json()).then(data => {
         if (data.success == 'success') {
-          Swal.fire({
+          return Swal.fire({
             title: 'Success!',
             text: 'You have deleted category successfully!',
             icon: 'success',
@@ -27,6 +27,13 @@ window.addEventListener('DOMContentLoaded', () => {
             window.location = 'ldelcate.html';
           });
         }
+        Swal.fire({
+          title: 'Error!',
+          text: 'You Can Not Delete category before Clearing is`s Question!',
+          icon: 'error'
+        }).then(() => {
+          window.location = 'ldelcate.html';
+        });
       });
     }
     else {

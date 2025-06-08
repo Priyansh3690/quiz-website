@@ -19,6 +19,12 @@ window.addEventListener('DOMContentLoaded', function () {
         div.classList.add('question-block');
         div.innerText = 'No Question Found!';
         form.appendChild(div);
+        let button = document.createElement('button');
+        button.innerText = 'Back'
+        button.addEventListener('click', () => {
+          window.location = 'ListCategory.html';
+        });
+        form.appendChild(button);
       } else {
         let count = 1;
         data.forEach(d => {
