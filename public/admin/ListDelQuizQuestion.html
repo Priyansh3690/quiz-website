@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="default.js"></script>
-  <style>
-    body {
-      min-height: 90vh;
-      background-image: url('image/backimg.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-  </style>
-  <link rel="stylesheet" href="style.css">
+  <script src="../ListDelQuizQuestion.js"></script>
+  <script src="../default.js"></script>
+  <link rel="stylesheet" href="../style.css">
 </head>
-
 <body>
   <div id="heade">
     <script>
-      fetch('first-nav.html').then(res => res.text()).then(data => {
+      fetch('admindesh.html').then(res => res.text()).then(data => {
         document.getElementById('heade').innerHTML = data;
       })
       function showSidebar() {
@@ -35,6 +24,8 @@
       }
     </script>
   </div>
+  <h1>Delete Categorys Question</h1>
+  <div class="category-grid" id="listcategory">
+  </div>
 </body>
-
 </html>

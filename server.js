@@ -259,6 +259,52 @@ app.post('/viewFullResult', async (req, res) => {
   return res.json({ Result: result.rows, Question: question.rows, len: result.rows.length });
 });
 
+// delete category Question
+app.post('/DeleteQuestion', async (req, res) => {
+  try {
+    const didd = req.body.didd;
+    await pool.query('delete from "questionTbl" where cid=$1', [didd]);
+    await pool.query('delete from result_base_on_question where cid=$1', [didd]);
+    await pool.query('delete from result_base_on_category where cid=$1', [didd]);
+    res.json({ success: 'success' });
+  } catch (error) {
+    return res.json({ error: error });
+  }
+});
+
+// send all result of user for Admin
+app.get('/getAllResultOfUserForAdmin', async (req, res) => {
+  const result = await pool.query(`
+  SELECT 
+    u.id, 
+    u.username, 
+    u.email, 
+    c.name, 
+    r.uid, 
+    r.cid, 
+    r.total_que, 
+    r.correct_que, 
+    r.wrong_que, 
+    r.percentage, 
+    TO_CHAR(r.data_time, 'DD Mon YYYY HH12:MI:SS AM') AS date_time, 
+    r.data_time 
+  FROM 
+    result_base_on_category r
+  JOIN 
+    category c ON c.id = r.cid 
+  JOIN 
+    "user" u ON u.id = r.uid 
+  ORDER BY 
+   r.data_time DESC;
+`);
+
+  if (result.rowCount > 0) {
+    // console.log(result.rows);
+    return res.json(result.rows);
+  }
+  res.json({ not: 'Error:Somthing_Went_wrong' });
+});
+
 app.listen(port, () => {
   console.log(`server running at http:/localhost:${port}`);
 });
