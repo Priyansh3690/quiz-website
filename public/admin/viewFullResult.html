@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../default.js"></script>
+    <!-- <link rel="stylesheet" href="../style.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f3f3ff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-block {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #8672FF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5c50c3;
+        }
+    </style>
+    <script src="../viewFullResult.js"></script>
+</head>
+
+<body>
+    <!-- <div id="heade">
+        <script>
+            fetch('admindesh.html').then(res => res.text()).then(data => {
+                document.getElementById('heade').innerHTML = data;
+            })
+            function showSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                sidebar.style.display = 'flex';
+            }
+            function hideSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                sidebar.style.display = 'none';
+            }
+        </script>
+    </div> -->
+    <div class="quiz-container">
+        <form id="userQuiz">
+        </form>
+        <button id="back">Back</button>
+    </div>
+</body>
+
+</html>

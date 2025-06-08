@@ -159,7 +159,7 @@ app.post('/Set_Ans_of_Que', async (req, res) => {
   let totals = 0;
   let correct = 0;
   let wrong = 0;
-  
+
   const ans = await pool.query('select id,ans from "questionTbl" where cid=$1 order by id;', [cid]);
   const dbAnswers = ans.rows;
   for (let i = 0; i < Answer.length; i++) {
@@ -224,6 +224,37 @@ app.post('/getAllResultOfUser', async (req, res) => {
   res.json({ not: 'Error:Somthing_Went_wrong' });
 });
 
+// view perticular result
+app.post('/viewFullResult', async (req, res) => {
+  const { cid, uid } = req.body;
+  const time = new Date(req.body.time);
+  const startTime = new Date(time.getTime() - 1000);
+  const endTime = new Date(time.getTime() + 1000);
+  let resultOFQustion = `
+  SELECT 
+    * 
+  FROM result_base_on_question 
+  WHERE cid=$1 
+    AND uid=$2 
+    AND date_time BETWEEN $3 AND $4 ORDER BY id`;
+
+  let Qustion = `
+    SELECT 
+      * 
+    FROM "questionTbl" 
+    WHERE cid=$1 
+    ORDER BY id;
+  `;
+
+  const result = await pool.query(resultOFQustion, [cid, uid, startTime, endTime]);
+  const question = await pool.query(Qustion, [cid]);
+
+  if (result.rows.length != question.rows.length) {
+    return res.json({ not: 'Somting_went_wrong' });
+  }
+  return res.json({ Result: result.rows, Question: question.rows, len: result.rows.length });
+});
+
 app.listen(port, () => {
   console.log(`server running at http:/localhost:${port}`);
-})
+});

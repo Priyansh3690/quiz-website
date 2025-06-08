@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 row.style.cursor = 'pointer';
                 row.addEventListener('click', () => {
-                    window.location.href = `viewResult.html?id=${d.cid},uid=${d.uid},time=${d.data_time}`;
+                    window.location.href = `viewFullResult.html?id=${d.cid}&uid=${d.uid}&time=${encodeURIComponent(d.data_time)}`;
                 });
 
                 tableBody.appendChild(row);

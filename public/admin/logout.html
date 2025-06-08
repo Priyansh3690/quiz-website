@@ -19,10 +19,11 @@
       confirmButtonText: "Yes, Logout!"
     }).then((result) => {
       if (result.isConfirmed) {
+        localStorage.clear();
         window.location = '../index.html';
       }
-      else{
-        window.location='dashbord.html';
+      else {
+        window.location = 'dashbord.html';
       }
     });
   </script>
