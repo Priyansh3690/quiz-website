@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    fetch('/getAllResult', {
+    fetch('/getAllResultOfUser', {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userid: UserId })
@@ -34,11 +34,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 <td>${d.total_que}</td>
                 <td>${d.correct_que}</td>
                 <td>${d.wrong_que}</td>
-                <td>${d.percentage}%</td>`;
+                <td>${d.percentage}%</td>
+                <td>${d.date_time}</td>
+                `;
 
                 row.style.cursor = 'pointer';
                 row.addEventListener('click', () => {
-                    window.location.href = `/viewResult?id=${d.cid}`;
+                    window.location.href = `viewResult.html?id=${d.cid},uid=${d.uid},time=${d.data_time}`;
                 });
 
                 tableBody.appendChild(row);

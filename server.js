@@ -159,7 +159,7 @@ app.post('/Set_Ans_of_Que', async (req, res) => {
   let totals = 0;
   let correct = 0;
   let wrong = 0;
-  console.log(Answer.length);
+  
   const ans = await pool.query('select id,ans from "questionTbl" where cid=$1 order by id;', [cid]);
   const dbAnswers = ans.rows;
   for (let i = 0; i < Answer.length; i++) {
@@ -175,18 +175,16 @@ app.post('/Set_Ans_of_Que', async (req, res) => {
     await pool.query('insert into result_base_on_question(cid,uid,opetion,ans) values($1,$2,$3,$4);', [cid, UserId, user.selected, IsCorrect]);
 
   }
-  console.log(totals);
-  console.log(correct);
-  console.log(wrong);
 
-  let tot=totals;
-  let cor=correct;
-  let wro=wrong;
+  let tot = totals;
+  let cor = correct;
+  let wro = wrong;
+
 
   if (totals === correct + wrong) {
     const percentage = ((correct / totals) * 100).toFixed(2);
 
-    await pool.query('insert into result_base_on_category(uid,cid,total_que,correct_que,wrong_que,percentage) values($1,$2,$3,$4,$5,$6)', [UserId, cid, totals, correct, wrong, percentage]);
+    await pool.query('insert into result_base_on_category(uid,cid,total_que,correct_que,wrong_que,percentage) values($1,$2,$3,$4,$5,$6)', [UserId, cid, tot, cor, wro, percentage]);
 
     return res.json({ success: "success" });
   } else {
@@ -195,17 +193,19 @@ app.post('/Set_Ans_of_Que', async (req, res) => {
 });
 
 // send all result of user
-app.post('/getAllResult', async (req, res) => {
+app.post('/getAllResultOfUser', async (req, res) => {
   const { userid } = req.body;
 
   const result = await pool.query(`
   SELECT 
     c.name, 
+    r.uid, 
     r.cid, 
     r.total_que, 
     r.correct_que, 
     r.wrong_que, 
     r.percentage, 
+    TO_CHAR(r.data_time, 'DD Mon YYYY HH12:MI:SS AM') AS date_time, 
     r.data_time 
   FROM 
     result_base_on_category r
@@ -218,9 +218,9 @@ app.post('/getAllResult', async (req, res) => {
 `, [userid]);
 
   if (result.rowCount > 0) {
+    // console.log(result.rows);
     return res.json(result.rows);
   }
-
   res.json({ not: 'Error:Somthing_Went_wrong' });
 });
 

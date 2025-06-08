@@ -9,17 +9,33 @@
     <script src="../ShowResult.js"></script>
 </head>
 
-<body class="body">
+<body>
+    <div id="heade">
+        <script>
+            fetch('admindesh.html').then(res => res.text()).then(data => {
+                document.getElementById('heade').innerHTML = data;
+            })
+            function showSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                sidebar.style.display = 'flex';
+            }
+            function hideSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                sidebar.style.display = 'none';
+            }
+        </script>
+    </div>
     <div class="table-container">
         <table id="summaryTable" class="summary-table">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Category</th>
+                    <th>Total Answer</th>
                     <th>Correct Answer</th>
-                    <th>Wrong Answer</th>
-                    <th>Total Question</th>
+                    <th>Wrong Question</th>
                     <th>Percentage</th>
+                    <th>Quiz Time</th>
                 </tr>
             </thead>
             <tbody>
