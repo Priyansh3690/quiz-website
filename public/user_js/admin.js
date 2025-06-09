@@ -19,7 +19,7 @@ form.addEventListener('submit', (e) => {
     }).then(res => res.json()).then(data => {
       if (data.success) {
         localStorage.setItem(JSON.stringify("admin"),JSON.stringify(data.success.id));
-        window.location = 'admin/dashbord.html';
+        window.location = '../admin/dashbord.html';
       }
       if (data.password == 'Incorrect') {
         email_input.parentElement.classList.add('incorrect');
