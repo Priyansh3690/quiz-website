@@ -23,6 +23,11 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.json());
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+  res.redirect('/user/index.html');
+});
+
+
 //for sign in 
 app.post('/signup', async (req, res) => {
   const { username, email, password } = req.body;
@@ -299,7 +304,26 @@ app.get('/getAllResultOfUserForAdmin', async (req, res) => {
 `);
 
   if (result.rowCount > 0) {
-    // console.log(result.rows);
+    return res.json(result.rows);
+  }
+  res.json({ not: 'Error:Somthing_Went_wrong' });
+});
+
+// user Info send to Admin
+app.get('/getAllUserInfoForAdmin', async (req, res) => {
+  const result = await pool.query(`
+  SELECT 
+    id, 
+    username, 
+    email, 
+    TO_CHAR(date_time, 'DD Mon YYYY HH12:MI:SS AM') AS date_time 
+  FROM 
+    "user"
+  ORDER BY 
+   date_time DESC;
+`);
+
+  if (result.rowCount > 0) {
     return res.json(result.rows);
   }
   res.json({ not: 'Error:Somthing_Went_wrong' });

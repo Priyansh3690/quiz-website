@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', function () {
   })
     .then(res => res.json())
     .then(data => {
-      if (data.not == 'no_rows') {
+      if (data.not) {
         let div = document.createElement('div');
         div.classList.add('question-block');
         div.innerText = 'No Question Found!';
