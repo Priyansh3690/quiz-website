@@ -53,8 +53,31 @@ app.post('/login', async (req, res) => {
   if (resForPassword.rows.length == 0) {
     res.json({ password: 'Incorrect' });
   } else {
-    res.json({ success: 'success' });
+    res.json({ success: resForPassword.rows[0] });
   }
+});
+
+// send perticular User Info
+app.post('/getPerticularUserInfo', async (req, res) => {
+  const { userid } = req.body;
+  const result = await pool.query(`
+  SELECT 
+    id, 
+    username, 
+    email, 
+    TO_CHAR(date_time, 'DD Mon YYYY HH12:MI:SS AM') AS date_time 
+  FROM 
+    "user" 
+  WHERE 
+    id=$1 
+  ORDER BY 
+   date_time DESC;
+`, [userid]);
+
+  if (result.rowCount > 0) {
+    return res.json({ success: result.rows[0] });
+  }
+  res.json({ not: 'Error:Somthing_Went_wrong' });
 });
 
 // for Admin login

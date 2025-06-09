@@ -63,8 +63,10 @@ form.addEventListener('submit', (e) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email_input.value, password: password_input.value }),
       }).then(res => res.json()).then(data => {
-        if (data.success == 'success') {
+        if (data.success) {
+          localStorage.setItem(JSON.stringify("UserId"), JSON.stringify(data.success.id))
           window.location = 'userdash.html';
+          return;
         }
         if (data.password == 'Incorrect') {
           email_input.parentElement.classList.add('incorrect');

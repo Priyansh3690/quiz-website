@@ -30,7 +30,6 @@ form.addEventListener('submit', (e) => {
   }
 });
 
-
 function getLoginFormsError(email, password) {
   let errors = [];
   if (email === '' || email == null) {
